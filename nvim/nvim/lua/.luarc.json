@@ -1,0 +1,33 @@
+{
+    "workspace.library": [
+        "/Users/liangji.zhuang/.config/nvim",
+        "/Users/liangji.zhuang/.local/share/nvim/site",
+        "/Users/liangji.zhuang/.local/share/nvim/site/pack/packer/start/barbar.nvim",
+        "/Users/liangji.zhuang/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
+        "/Users/liangji.zhuang/.local/share/nvim/site/pack/packer/start/hop.nvim",
+        "/Users/liangji.zhuang/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
+        "/Users/liangji.zhuang/.local/share/nvim/site/pack/packer/start/lualine.nvim",
+        "/Users/liangji.zhuang/.local/share/nvim/site/pack/packer/start/LuaSnip",
+        "/Users/liangji.zhuang/.local/share/nvim/site/pack/packer/start/mason-lspconfig.nvim",
+        "/Users/liangji.zhuang/.local/share/nvim/site/pack/packer/start/mason.nvim",
+        "/Users/liangji.zhuang/.local/share/nvim/site/pack/packer/start/monokai.nvim",
+        "/Users/liangji.zhuang/.local/share/nvim/site/pack/packer/start/null-ls.nvim",
+        "/Users/liangji.zhuang/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
+        "/Users/liangji.zhuang/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
+        "/Users/liangji.zhuang/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
+        "/Users/liangji.zhuang/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
+        "/Users/liangji.zhuang/.local/share/nvim/site/pack/packer/start/packer.nvim",
+        "/Users/liangji.zhuang/.local/share/nvim/site/pack/packer/start/plenary.nvim",
+        "/Users/liangji.zhuang/.local/share/nvim/site/pack/packer/start/toggleterm.nvim",
+        "/Users/liangji.zhuang/.local/share/nvim/site/pack/packer/start/vim-commentary",
+        "/Users/liangji.zhuang/.local/share/nvim/site/pack/packer/start/vim-fugitive",
+        "/opt/homebrew/Cellar/neovim/0.9.1/share/nvim/runtime",
+        "/opt/homebrew/Cellar/neovim/0.9.1/lib/nvim",
+        "${3rd}/luassert/library",
+        "${3rd}/luv/library",
+        "${3rd}/luassert/library",
+        "${3rd}/luv/library",
+        "${3rd}/luassert/library",
+        "${3rd}/luv/library"
+    ]
+}
