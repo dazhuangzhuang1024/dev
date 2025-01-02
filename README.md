@@ -14,6 +14,8 @@ cd tmux
 sh install.sh
 ```
 
+Open clipboard access in `Setting->General->Selection->Applications in terminal may access clipboard`.
+
 ### Neovim
 ```bash
 cd nvim
