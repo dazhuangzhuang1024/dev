@@ -10,6 +10,10 @@ brew install python
 echo "install npm ..."
 brew install npm
 
+echo "install ripgrep ..."
+# It is required by telescope live grep
+brew install ripgrep
+
 echo "install packer ..."
 git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
