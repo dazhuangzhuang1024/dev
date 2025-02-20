@@ -8,6 +8,8 @@ cd iterm2
 sh install.sh
 ```
 
+> In macos, change option key map with `Setting->Profiles->Keys->Left/Right Option key->Esc+`.
+
 ### Tmux
 ```bash
 cd tmux
