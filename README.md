@@ -8,7 +8,8 @@ cd iterm2
 sh install.sh
 ```
 
-- Config iterm2 to use nerd-font: `Settings->Profiles->Text->Font->Hack Nerd Font Mono`
+1. Config iterm2 to use nerd-font: `Settings->Profiles->Text->Font->Hack Nerd Font Mono`
+2. Allow applications(tmux) to access clipboard: `Settings->General->Selection->Access`
 
 > - In macos, change option key map with `Settings->Profiles->Keys->Left/Right Option key->Esc+`.
 
@@ -18,7 +19,7 @@ cd tmux
 sh install.sh
 ```
 
-- Open clipboard access: `Setting->General->Selection->Applications in terminal may access clipboard`.
+1. Open clipboard access: `Setting->General->Selection->Applications in terminal may access clipboard`.
 
 ### Neovim
 ```bash
