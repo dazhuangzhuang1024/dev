@@ -87,16 +87,48 @@ alt + u  # Remove/uninstall plugins not on the plugin list
 
 ### Neovim
 
+#### Basic
+
 ```bash
 alias vim="nvim"
 alias vi="nvim"
 ```
 
-#### Functions
+#### Plugin
+
+##### manager -- [packer](https://github.com/wbthomason/packer.nvim)
+
+```
+-- You must run this or `PackerSync` whenever you make changes to your plugin configuration
+-- Regenerate compiled loader file
+:PackerCompile
+
+-- Remove any disabled or unused plugins
+:PackerClean
+
+-- Clean, then install missing plugins
+:PackerInstall
+
+-- Clean, then update and install plugins
+-- supports the `--preview` flag as an optional first argument to preview updates
+:PackerUpdate
+
+-- Perform `PackerUpdate` and then `PackerCompile`
+-- supports the `--preview` flag as an optional first argument to preview updates
+:PackerSync
+
+-- Show list of installed plugins
+:PackerStatus
+
+-- Loads opt plugin immediately
+:PackerLoad completion-nvim ale
+```
+
+##### Usage
 
 `<leader>` means vim-leader. We config `,` as `<leader>` here.(`vim.g.mapleader = ","`)
 
-- Directory tree([nvim-tree](https://github.com/nvim-tree/nvim-tree.lua))
+- Directory tree -- [nvim-tree](https://github.com/nvim-tree/nvim-tree.lua)
 ```
 <leader>t  # 打开 tree，同 `:NvimTreeToggle`
 
@@ -119,7 +151,7 @@ d          # delete
 D          # trash
 ```
 
-- Tab manager([barbar](https://github.com/romgrk/barbar.nvim))
+- Tab manager -- [barbar](https://github.com/romgrk/barbar.nvim)
 
 > All in normal mode
 ```
@@ -150,16 +182,16 @@ D          # trash
 '<A-c>'  # `:BufferClose<CR>`
 
 -- Wipeout buffer
---                 :BufferWipeout
+:BufferWipeout
 -- Close commands
---                 :BufferCloseAllButCurrent
---                 :BufferCloseAllButPinned
---                 :BufferCloseAllButCurrentOrPinned
---                 :BufferCloseBuffersLeft
---                 :BufferCloseBuffersRight
+:BufferCloseAllButCurrent
+:BufferCloseAllButPinned
+:BufferCloseAllButCurrentOrPinned
+:BufferCloseBuffersLeft
+:BufferCloseBuffersRight
 
 -- Magic buffer-picking mode
-<A-P>  # `:BufferPick<CR>`
+<A-P>      # `:BufferPick<CR>`
 
 -- Sort automatically by...
 <Space>bb  # `:BufferOrderByBufferNumber<CR>`
@@ -168,76 +200,128 @@ D          # trash
 <Space>bw  # `:BufferOrderByWindowNumber<CR>`
 ```
 
-- Fuzzy finder([telescope](https://github.com/nvim-telescope/telescope.nvim))
+- Fuzzy finder -- [telescope](https://github.com/nvim-telescope/telescope.nvim)
 ```
-<leader>ff  # Find files，同  `:Telescope find_files<cr>`
-<leader>fg  # Live grep，同 `:Telescope live_grep<cr>`
-<leader>fb  # Buffers，同 `:Telescope buffers<cr>`
-<leader>fh  # Help tags，同 `:Telescope help_tags<cr>`
-```
-
-- Terminal interaction([toggleterm](https://github.com/akinsho/toggleterm.nvim))
-```
-<C-\>                 # 打开一个 terminal window，同 `:ToggleTerm`
-<Esc>                 # 从 Terminal 模式回到 Normal 模式，同 `<C-\><C-N>`
-Normal 模式下 2<C-\>  # Open multiple terminal side-by-side
-```
-- Git interaction([vim-fugitive](https://github.com/tpope/vim-fugitive))
-```
-`:Git commit`, `:Git rebase -i` and other commands  # invoke an editor do their editing in the current Vim instance.
-`:Git diff`, `:Git log` and verbose                 # have their output loaded into a temporary buffer
-`:Git mergetool` and `:Git difftool`                # load their changesets into the quickfix list
-`:Git`                                              # opens a summary window with dirty files and unpushed and unpulled commits. 
-                                                    # Press `g?` to bring up a list of maps for numerous operations including diffing, staging, committing, rebasing, and stashing.
-`:Gedit`                                            # // TODO
-`:Gdiffsplit` or `:Gdiffvsplit`                     # // TODO
-`:Gread`                                            # // TODO
+<leader>ff  # Find files, same as `:Telescope find_files<cr>`
+<leader>fg  # Live grep, same as `:Telescope live_grep<cr>`
+<leader>fb  # Buffers, same as `:Telescope buffers<cr>`
+<leader>fh  # Help tags, same as `:Telescope help_tags<cr>`
 ```
 
-- LSP(Language Server Protocol)([mason](https://github.com/williamboman/mason.nvim))
+- Terminal interaction -- [toggleterm](https://github.com/akinsho/toggleterm.nvim)
 ```
-gD         # go to declaration
-gd         # go to definition
-gh         # go to hover
-gi         # go to implementation
-gr         # go to references
-<space>f   # code format
-<space>rn  # code rename
-<space>ca  # code action
+-- Open and close
+<C-\>                                  # open a terminal window，same as `:ToggleTerm`
+<Esc>                                  # return to Normal mode from Terminal mode，same as `<C-\><C-N>`
+:ToggleTermToggleAll
+
+-- Send context
+:ToggleTermSendCurrentLine <T_ID>      # sends the whole line where you are standing with your cursor
+:ToggleTermSendVisualLines <T_ID>      # sends all the (whole) lines in your visual selection
+:ToggleTermSendVisualSelection <T_ID>  # sends only the visually selected text (this can be a block of text or a selection in a single line)
+(<T_ID is an optional terminal ID parameter. If not provided, then the default is the first terminal)
+
+:ToggleTermSetName
+
+-- Motion
+# all in terminal mode
+<C-h>                                   # same as [[<Cmd>wincmd h<CR>]]
+<C-j>                                   # same as [[<Cmd>wincmd j<CR>]]
+<C-k>                                   # same as [[<Cmd>wincmd k<CR>]]
+<C-l>                                   # same as [[<Cmd>wincmd l<CR>]]
+<C-w>                                   # same as [[<C-\><C-n><C-w>]]
+
+```
+- Git interaction -- [vim-fugitive](https://github.com/tpope/vim-fugitive), [diffview.nvim](https://github.com/sindrets/diffview.nvim)
+```
+-- Basic commands
+:Git commit, :Git rebase -i                         # invoke an editor do their editing in the current Vim instance.
+:Git diff, :Git log                                 # have their output loaded into a temporary buffer
+:Git mergetoolm, :Git difftool                      # load their changesets into the quickfix list
+:Git                                                # opens a summary window with dirty files and unpushed and unpulled commits.
+                                                    
+-- Additional commands
+:Gedit
+:Gdiffsplit, :Gdiffvsplit
+:Gread
+
+-- Diffview FileHistory
+:DiffviewFileHistory                                # file history in current branch
+:DiffviewFileHistory %                              # current file history
+:DiffviewFileHistory path/to/some/file.txt
+:DiffviewFileHistory path/to/some/directory
+:DiffviewFileHistory include/this and/this :!but/not/this
+:DiffviewFileHistory --range=origin..HEAD
+:DiffviewFileHistory --range=feat/example-branch
+
+-- Diffview open
+:DiffviewOpen                                       # opens a new Diffview that compares against the current index
+:DiffviewOpen HEAD~2
+:DiffviewOpen HEAD~4..HEAD~2
+:DiffviewOpen d4a7b0d
+:DiffviewOpen d4a7b0d^!
+:DiffviewOpen d4a7b0d..519b30e
+:DiffviewOpen origin/main...HEAD
+
+-- Diffvew close and others
+:DiffviewClose                                      # Close the current diffview. You can also use :tabclose.
+:DiffviewToggleFiles                                # Toggle the file panel.
+:DiffviewFocusFiles                                 # Bring focus to the file panel.
+:DiffviewRefresh                                    # Update stats and entries in the file list of the current Diffview.
+
+-- Diffview merge-tool
+:h diffview-merge-tool                              # open help
+<leader>co                                          # Choose the OURS version of the conflict.
+<leader>ct                                          # Choose the THEIRS version of the conflict.
+<leader>cb                                          # Choose the BASE version of the conflict.
+<leader>ca                                          # Choose all versions of the conflict
+dx                                                  # Choose none of the versions of the conflict
 ```
 
-- Code completion([YouCompleteMe](https://github.com/ycm-core/YouCompleteMe))
+- LSP -- [mason](https://github.com/williamboman/mason.nvim), [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)
 ```
-<A-b>  # doc scroll backward
-<A-f>  # doc scroll forward
-<A-j>  # items down
-<A-k>  # items up
-<CR>   # confirm selection
+-- LSP servers, linters and formatters manage
+:Mason                           # opens a graphical status window
+:MasonUpdate                     # updates all managed registries
+:MasonInstall <package> ...      # installs/re-installs the provided packages
+:MasonUninstall <package> ...    # uninstalls the provided packages
+:MasonUninstallAll               # uninstalls all packages
+:MasonLog                        # opens the mason.nvim log file in a new tab window
+
+-- LSP config
+:LspInstall [<server> ...]       # installs the provided servers.
+:LspUninstall <server> ...       # uninstalls the provided servers.
+
+-- Go to
+gD                               # go to declaration
+gd                               # go to definition
+gh                               # go to hover
+gi                               # go to implementation
+gr                               # go to references
+gr                               # go to type definition
+gcf                              # go code format
+gca                              # go code action
 ```
 
-- Plugin manager([packer](https://github.com/wbthomason/packer.nvim))
+- Code completion -- [nvim-cmp](https://github.com/hrsh7th/nvim-cmp)
 ```
--- You must run this or `PackerSync` whenever you make changes to your plugin configuration
--- Regenerate compiled loader file
-:PackerCompile
+<C-b>        # scroll doc backward
+<C-f>        # scroll doc forward
+<C-j>        # items down
+<C-k>        # items up
+<C-e>        # abort
+<C-Space>    # complete
+<CR>         # confirm selection
+```
 
--- Remove any disabled or unused plugins
-:PackerClean
+- Others
 
--- Clean, then install missing plugins
-:PackerInstall
+```
+-- Markdown
+:MarkdownPreview        # start the preview
+:MarkdownPreviewStop    # stop the preview
 
--- Clean, then update and install plugins
--- supports the `--preview` flag as an optional first argument to preview updates
-:PackerUpdate
-
--- Perform `PackerUpdate` and then `PackerCompile`
--- supports the `--preview` flag as an optional first argument to preview updates
-:PackerSync
-
--- Show list of installed plugins
-:PackerStatus
-
--- Loads opt plugin immediately
-:PackerLoad completion-nvim ale
+-- quick comment
+:gc                     # comment current line
+:gcc                    # comment selected block in visual mode
 ```

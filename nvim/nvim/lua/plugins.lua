@@ -39,9 +39,9 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
   -- LSP manager
-  use { 'williamboman/mason.nvim' }
-  use { 'williamboman/mason-lspconfig.nvim' }
-  use { 'neovim/nvim-lspconfig' }
+  use { 'williamboman/mason.nvim' } -- portable package manager for LSP servers, DAP servers, linters, and formatters.
+  use { 'williamboman/mason-lspconfig.nvim' } -- automatically install enabled LSP servers in lspconfig
+  use { 'neovim/nvim-lspconfig' } -- LSP client config for different servers
 
   -- Add hooks to LSP to support Linter && Formatter
   use { 'nvim-lua/plenary.nvim' }
@@ -52,46 +52,26 @@ return require('packer').startup(function(use)
       config=[[require('config.mason-null-ls')]]
   }
 
-  -- Vscode-like pictograms
-  use { 'onsails/lspkind.nvim', event = 'VimEnter' }
-
   -- Auto-completion engine
   -- Note:
   --     the default search path for `require` is ~/.config/nvim/lua
   --     use a `.` as a path seperator
   --     the suffix `.lua` is not needed
-  use { 'hrsh7th/nvim-cmp', after = 'lspkind.nvim', config = [[require('config.nvim-cmp')]] }
-  use { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp' }
-  use { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' } -- buffer auto-completion
-  use { 'hrsh7th/cmp-path', after = 'nvim-cmp' } -- path auto-completion
-  use { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' } -- cmdline auto-completion
-
-
-  -- Code snippet engine
-  use 'L3MON4D3/LuaSnip'
-  use { 'saadparwaiz1/cmp_luasnip', after = { 'nvim-cmp', 'LuaSnip' } }
-
-  -- Colorscheme
-  use 'tanvirtin/monokai.nvim'
+  use { 'hrsh7th/cmp-nvim-lsp' }
+  use { 'hrsh7th/cmp-buffer' } -- buffer auto-completion
+  use { 'hrsh7th/cmp-path' } -- path auto-completion
+  use { 'hrsh7th/cmp-cmdline' } -- cmdline auto-completion
+  use { 'hrsh7th/nvim-cmp', config = [[require('config.nvim-cmp')]] }
+  -- Use vim-vsnip as a snippet plugin
+  use { 'hrsh7th/cmp-vsnip' }
+  use { 'hrsh7th/vim-vsnip' }
 
   -- Git integration
-  use 'tpope/vim-fugitive'
-
-  -- Git decorations
-  use { 'lewis6991/gitsigns.nvim', config = [[require('config.gitsigns')]] }
-
-  -- Autopairs: [], (), "", '', etc
-  -- it relies on nvim-cmp
+  use 'tpope/vim-fugitive' -- command executor
+  use { 'lewis6991/gitsigns.nvim', config = [[require('config.gitsigns')]] } -- decorations
   use {
-      "windwp/nvim-autopairs",
-      after = 'nvim-cmp',
-      config = [[require('config.nvim-autopairs')]],
+    "sindrets/diffview.nvim",
   }
-
-  -- Code comment helper
-  --     1. `gcc` to comment a line
-  --     2. select lines in visual mode and run `gc` to comment/uncomment lines
-  use 'tpope/vim-commentary'
 
   -- Treesitter-integration
   use {
@@ -103,30 +83,19 @@ return require('packer').startup(function(use)
       config = [[require('config.nvim-treesitter')]],
   }
 
-  -- Show indentation and blankline
-  use { 'lukas-reineke/indent-blankline.nvim', config = [[require('config.ibl')]] }
-
-  -- Status line
+  -- Finder
+  -- fuzzy finder over lists
   use {
-      'nvim-lualine/lualine.nvim',
-      requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-      config = [[require('config.lualine')]],
+    'nvim-telescope/telescope.nvim', branch = '0.1.x',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      -- optional for icon support
+      'nvim-tree/nvim-web-devicons',
+    }
   }
 
-  -- Markdown support
-  use { 'preservim/vim-markdown', ft = { 'markdown' } }
-
-  -- Markdown previewer
-  -- It require nodejs and yarn. Use homebrew to install first
-  use {
-      "iamcco/markdown-preview.nvim",
-      run = "cd app && npm install",
-      setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
-      ft = { "markdown" },
-  }
-
-  -- Smart indentation for Python
-  use { "Vimjas/vim-python-pep8-indent", ft = { "python" } }
+  -- File icons
+  use 'nvim-tree/nvim-web-devicons'
 
   -- File explorer
   use {
@@ -137,36 +106,51 @@ return require('packer').startup(function(use)
       config = [[require('config.nvim-tree')]]
   }
 
-  -- Smart motion
-  use {
-      'phaazon/hop.nvim',
-      branch = 'v2', -- optional but strongly recommended
-      config = function()
-          -- you can configure Hop the way you like here; see :h hop-config
-          require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
-      end
-  }
-
-  -- Better terminal integration
-  -- tag = string,                -- Specifies a git tag to use. Supports '*' for "latest tag"
+  -- Terminal integration
   use { "akinsho/toggleterm.nvim", tag = '*', config = [[require('config.toggleterm')]] }
 
+  -- Colorscheme
+  use 'tanvirtin/monokai.nvim'
+
+  -- Status line
+  use {
+      'nvim-lualine/lualine.nvim',
+      requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+      config = [[require('config.lualine')]],
+  }
+
+  -- Show indentation and blankline
+  use { 'lukas-reineke/indent-blankline.nvim', config = [[require('config.ibl')]] }
+
   -- These optional plugins should be loaded directly because of a bug in Packer lazy loading
-  use 'nvim-tree/nvim-web-devicons' -- OPTIONAL: for file icons
+  -- use 'nvim-tree/nvim-web-devicons' -- OPTIONAL: for file icons
   use {
     'romgrk/barbar.nvim',
     config = [[require('config.barbar')]]
   }
 
+  -- Markdown support
+  use { 'preservim/vim-markdown', ft = { 'markdown' } } -- Syntax highlighting, matching rules and mappings 
+  use({
+      "iamcco/markdown-preview.nvim",
+      run = function() vim.fn["mkdp#util#install"]() end,
+  }) -- perviewer
+
+  -- Smart indentation for Python
+  use { "Vimjas/vim-python-pep8-indent", ft = { "python" } }
+
+  -- Autopairs: [], (), "", '', etc
+  -- it relies on nvim-cmp
   use {
-    'nvim-telescope/telescope.nvim', tag = '0.1.4',
-    requires = {
-      'nvim-lua/plenary.nvim',
-      -- optional for icon support
-      'nvim-tree/nvim-web-devicons',
-    }
+      "windwp/nvim-autopairs",
+      after = 'nvim-cmp',
+      config = [[require('config.nvim-autopairs')]],
   }
 
+  -- Code comment helper
+  --  1. `gcc` to comment a line
+  --  2. select lines in visual mode and run `gc` to comment/uncomment lines
+  use 'tpope/vim-commentary'
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
