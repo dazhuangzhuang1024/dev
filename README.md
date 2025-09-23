@@ -301,6 +301,11 @@ gr                               # go to references
 gr                               # go to type definition
 gcf                              # go code format
 gca                              # go code action
+
+-- diagnostic
+<leader>d                        # open diagnostic in quickfix list
+d[                               # goto prev item
+d]                               # goto next item
 ```
 
 - Code completion -- [nvim-cmp](https://github.com/hrsh7th/nvim-cmp)
